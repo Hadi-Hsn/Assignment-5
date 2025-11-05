@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lebanon & AUB Map Servers</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Lebanon & AUB Map Servers</h1>
+        <p class="subtitle">
+          Explore Lebanese heritage, AUB campus history, and Beirut's emotional
+          landscape
+        </p>
+      </header>
+
+      <div class="tabs">
+        <button class="tab-button active" onclick="showTab('chat')">
+          🤖 AI Assistant
+        </button>
+        <button class="tab-button" onclick="showTab('timetravel')">
+          ⏰ Lebanon History
+        </button>
+        <button class="tab-button" onclick="showTab('emotional')">
+          💭 Beirut Emotions
+        </button>
+        <button class="tab-button" onclick="showTab('quantum')">
+          🚗 Smart Navigation
+        </button>
+        <button class="tab-button" onclick="showTab('weather')">
+          ☀️ Weather
+        </button>
+        <button class="tab-button" onclick="showTab('fetch')">
+          🌐 Web Fetch
+        </button>
+      </div>
+
+      <!-- AI Chat Tab -->
+      <div id="chat" class="tab-content active">
+        <div class="server-info">
+          <h2>🤖 AI-Powered Lebanon & AUB Assistant</h2>
+          <p>
+            Ask questions about Lebanese history, AUB campus, Beirut
+            neighborhoods, and get smart navigation help!
+          </p>
+        </div>
+
+        <div class="chat-container">
+          <div id="chat-messages" class="chat-messages"></div>
+
+          <div class="chat-input-area">
+            <textarea id="chat-input" placeholder="Ask me anything!"></textarea>
+            <button onclick="sendChatMessage()" class="chat-send-btn">
+              Send 🚀
+            </button>
+          </div>
+
+          <div class="chat-suggestions">
+            <p><strong>💡 Try asking:</strong></p>
+            <button
+              class="suggestion-btn"
+              onclick="askSuggestion('What was AUB campus like in 1866?')"
+            >
+              AUB founding history
+            </button>
+            <button
+              class="suggestion-btn"
+              onclick="askSuggestion('Find me peaceful places in Beirut')"
+            >
+              Find peaceful Beirut spots
+            </button>
+            <button
+              class="suggestion-btn"
+              onclick="askSuggestion('What is the weather in Beirut?')"
+            >
+              Beirut weather
+            </button>
+            <button
+              class="suggestion-btn"
+              onclick="askSuggestion('Ski conditions at Faraya')"
+            >
+              Faraya ski conditions
+            </button>
+            <button
+              class="suggestion-btn"
+              onclick="askSuggestion('Route from AUB to Byblos')"
+            >
+              AUB to Byblos route
+            </button>
+            <button
+              class="suggestion-btn"
+              onclick="askSuggestion('What emotions does Gemmayzeh evoke?')"
+            >
+              Gemmayzeh emotions
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lebanon Historical Geography Tab -->
+      <div id="timetravel" class="tab-content">
+        <div class="server-info">
+          <h2>🇱🇧 Lebanon Historical Geography</h2>
+          <p>
+            Travel through Lebanese history - from Phoenician times through
+            Ottoman era, French Mandate, to modern Lebanon and AUB's 150+ year
+            evolution
+          </p>
+        </div>
+
+        <div class="operation-section">
+          <h3>📍 Geocode Historical Location</h3>
+          <div class="form-group">
+            <input
+              type="text"
+              id="tt-geocode-location"
+              placeholder="Location (e.g., Beirut, AUB Campus)"
+              value="Beirut"
+            />
+            <input
+              type="number"
+              id="tt-geocode-year"
+              placeholder="Year"
+              value="1920"
+              min="1"
+              max="2100"
+            />
+            <button onclick="timeTravelGeocode()">
+              Get Historical Location
+            </button>
+          </div>
+          <div id="tt-geocode-result" class="result-box"></div>
+        </div>
+
+        <div class="operation-section">
+          <h3>📜 Get Location Timeline</h3>
+          <div class="form-group">
+            <input
+              type="text"
+              id="tt-timeline-location"
+              placeholder="Location (e.g., AUB Campus, Byblos)"
+              value="AUB Campus"
+            />
+            <input
+              type="number"
+              id="tt-timeline-start"
+              placeholder="Start Year (optional)"
+              min="1"
+              max="2100"
+            />
+            <input
+              type="number"
+              id="tt-timeline-end"
+              placeholder="End Year (optional)"
+              min="1"
+              max="2100"
+            />
+            <button onclick="timeTravelTimeline()">Get Timeline</button>
+          </div>
+          <div id="tt-timeline-result" class="result-box"></div>
+        </div>
+
+        <div class="operation-section">
+          <h3>⚖️ Compare Eras</h3>
+          <div class="form-group">
+            <input
+              type="text"
+              id="tt-compare-location"
+              placeholder="Location (e.g., Beirut, Tripoli)"
+              value="Beirut"
+            />
+            <input
+              type="number"
+              id="tt-compare-year1"
+              placeholder="First Year"
+              value="1975"
+              min="1"
+              max="2100"
+            />
+            <input
+              type="number"
+              id="tt-compare-year2"
+              placeholder="Second Year"
+              value="2005"
+              min="1"
+              max="2100"
+            />
+            <button onclick="timeTravelCompare()">Compare Eras</button>
+          </div>
+          <div id="tt-compare-result" class="result-box"></div>
+        </div>
+      </div>
+
+      <!-- Beirut Emotional Geography Tab -->
+      <div id="emotional" class="tab-content">
+        <div class="server-info">
+          <h2>💭 Beirut Emotional Geography</h2>
+          <p>
+            Discover the emotional character of Lebanese neighborhoods, AUB
+            campus spots, and cultural sites
+          </p>
+        </div>
+
+        <div class="operation-section">
+          <h3>🎭 Get Location Emotions</h3>
+          <div class="form-group">
+            <input
+              type="text"
+              id="eg-location"
+              placeholder="Location (e.g., Hamra, AUB Green Oval)"
+              value="Hamra"
+            />
+            <button onclick="emotionalLocation()">Get Emotional Profile</button>
+          </div>
+          <div id="eg-location-result" class="result-box"></div>
+        </div>
+
+        <div class="operation-section">
+          <h3>🔍 Find Places by Emotion</h3>
+          <div class="form-group">
+            <select id="eg-emotion">
+              <option value="peace">Peace</option>
+              <option value="joy">Joy</option>
+              <option value="inspiration">Inspiration</option>
+              <option value="excitement">Excitement</option>
+              <option value="nostalgia">Nostalgia</option>
+              <option value="serenity">Serenity</option>
+            </select>
+            <input
+              type="number"
+              id="eg-intensity"
+              placeholder="Min Intensity (0-100)"
+              value="80"
+              min="0"
+              max="100"
+            />
+            <button onclick="emotionalFind()">Find Places</button>
+          </div>
+          <div id="eg-find-result" class="result-box"></div>
+        </div>
+      </div>
+
+      <!-- Lebanon Smart Navigation Tab -->
+      <div id="quantum" class="tab-content">
+        <div class="server-info">
+          <h2>🚗 Lebanon Smart Navigation</h2>
+          <p>
+            Navigate Lebanon with awareness of power cuts, traffic patterns, and
+            infrastructure conditions - multiple route options with reliability
+            scores
+          </p>
+        </div>
+
+        <div class="operation-section">
+          <h3>🛣️ Calculate Smart Routes</h3>
+          <div class="form-group">
+            <input
+              type="text"
+              id="qn-routes-origin"
+              placeholder="Origin"
+              value="Beirut"
+            />
+            <input
+              type="text"
+              id="qn-routes-destination"
+              placeholder="Destination"
+              value="Byblos"
+            />
+            <select id="qn-routes-mode">
+              <option value="driving">Driving</option>
+              <option value="service">Service (shared taxi)</option>
+              <option value="bus">Bus</option>
+              <option value="walking">Walking</option>
+            </select>
+            <input
+              type="number"
+              id="qn-routes-risk"
+              placeholder="Risk Tolerance (0-1)"
+              value="0.5"
+              min="0"
+              max="1"
+              step="0.1"
+            />
+            <button onclick="quantumRoutes()">Calculate Routes</button>
+          </div>
+          <div id="qn-routes-result" class="result-box"></div>
+        </div>
+
+        <div class="operation-section">
+          <h3>🔄 Adaptive Rerouting</h3>
+          <div class="form-group">
+            <input
+              type="text"
+              id="qn-reroute-origin"
+              placeholder="Origin"
+              value="Hamra"
+            />
+            <input
+              type="text"
+              id="qn-reroute-destination"
+              placeholder="Destination"
+              value="Downtown Beirut"
+            />
+            <input
+              type="text"
+              id="qn-reroute-current"
+              placeholder="Current Route"
+              value="route_nyc_boston_1"
+            />
+            <div class="condition-selector">
+              <label
+                ><input type="checkbox" value="heavy_traffic" /> Heavy
+                Traffic</label
+              >
+              <label
+                ><input type="checkbox" value="power_cut" /> Power Cut</label
+              >
+              <label
+                ><input type="checkbox" value="road_closure" /> Road
+                Closure</label
+              >
+              <label
+                ><input type="checkbox" value="weather" /> Bad Weather</label
+              >
+              <label
+                ><input type="checkbox" value="protest" />
+                Protest/Demonstration</label
+              >
+            </div>
+            <button onclick="quantumReroute()">Get Adaptive Reroute</button>
+          </div>
+          <div id="qn-reroute-result" class="result-box"></div>
+        </div>
+      </div>
+
+      <!-- Weather Tab -->
+      <div id="weather" class="tab-content">
+        <div class="server-info">
+          <h2>☀️ Lebanese Weather Service</h2>
+          <p>
+            Get real-time weather for Lebanese cities and mountain ski resorts
+          </p>
+        </div>
+
+        <div class="operation">
+          <h3>🌡️ Current Weather</h3>
+          <div class="form-group">
+            <input
+              type="text"
+              id="weather-location"
+              placeholder="Location (e.g., beirut, faraya, aub, tripoli)"
+              value="beirut"
+            />
+            <button onclick="getCurrentWeather()">Get Current Weather</button>
+          </div>
+          <div id="weather-current-result" class="result-box"></div>
+        </div>
+
+        <div class="operation">
+          <h3>📅 5-Day Forecast</h3>
+          <div class="form-group">
+            <input
+              type="text"
+              id="forecast-location"
+              placeholder="Location"
+              value="aub"
+            />
+            <input
+              type="number"
+              id="forecast-days"
+              placeholder="Days (1-5)"
+              value="5"
+              min="1"
+              max="5"
+            />
+            <button onclick="getWeatherForecast()">Get Forecast</button>
+          </div>
+          <div id="weather-forecast-result" class="result-box"></div>
+        </div>
+
+        <div class="operation">
+          <h3>⛷️ Ski Conditions</h3>
+          <div class="form-group">
+            <select id="ski-resort">
+              <option value="faraya">Faraya Mzaar</option>
+              <option value="cedars">The Cedars</option>
+            </select>
+            <button onclick="getSkiConditions()">Get Ski Conditions</button>
+          </div>
+          <div id="weather-ski-result" class="result-box"></div>
+        </div>
+
+        <div class="operation">
+          <h3>🔄 Compare Locations</h3>
+          <div class="form-group">
+            <input
+              type="text"
+              id="compare-location1"
+              placeholder="First Location"
+              value="beirut"
+            />
+            <input
+              type="text"
+              id="compare-location2"
+              placeholder="Second Location"
+              value="faraya"
+            />
+            <button onclick="compareWeather()">Compare Weather</button>
+          </div>
+          <div id="weather-compare-result" class="result-box"></div>
+        </div>
+      </div>
+
+      <!-- Fetch Tab (Official MCP Server) -->
+      <div id="fetch" class="tab-content">
+        <div class="server-info">
+          <h2>🌐 MCP Fetch Server ⭐ OFFICIAL</h2>
+          <p>
+            Official MCP server for fetching web content. Get real information
+            about Lebanon, AUB, news, articles, and more!
+          </p>
+          <p style="color: #888; font-size: 0.9em">
+            Source:
+            <a
+              href="https://github.com/modelcontextprotocol/servers"
+              target="_blank"
+              style="color: #9b59b6"
+              >github.com/modelcontextprotocol/servers</a
+            >
+          </p>
+        </div>
+
+        <div class="operation">
+          <h3>📄 Fetch Single URL</h3>
+          <div class="form-group">
+            <input
+              type="text"
+              id="fetch-url"
+              placeholder="Enter URL (e.g., https://www.aub.edu.lb)"
+              value="https://www.aub.edu.lb"
+            />
+            <input
+              type="number"
+              id="fetch-max-length"
+              placeholder="Max length (default: 5000)"
+              value="5000"
+            />
+            <button onclick="fetchUrl()">Fetch Content</button>
+          </div>
+          <div id="fetch-result" class="result-box"></div>
+        </div>
+
+        <div class="operation">
+          <h3 style="margin-top: 10px; margin-bottom: 10px">
+            💡 Suggested URLs
+          </h3>
+          <button
+            onclick="document.getElementById('fetch-url').value='https://www.aub.edu.lb'; fetchUrl();"
+            class="suggestion-btn"
+          >
+            AUB Official Website
+          </button>
+          <button
+            onclick="document.getElementById('fetch-url').value='https://en.wikipedia.org/wiki/Beirut'; fetchUrl();"
+            class="suggestion-btn"
+          >
+            Beirut Wikipedia
+          </button>
+          <button
+            onclick="document.getElementById('fetch-url').value='https://en.wikipedia.org/wiki/American_University_of_Beirut'; fetchUrl();"
+            class="suggestion-btn"
+          >
+            AUB Wikipedia
+          </button>
+        </div>
+      </div>
+
+      <footer>
+        <p>
+          🇱🇧 Lebanon & AUB Geographic Intelligence Platform | Built with MCP |
+          EECE 798S - Agentic Systems | American University of Beirut
+        </p>
+      </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
